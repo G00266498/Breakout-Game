@@ -16,6 +16,12 @@ var rightPressed = false;
 var leftPressed = false;
 var score = 0;
 
+//Game sounds 
+var WINNING_SOUND = new Audio('sounds/woohoo.wav');
+var SCORE_SOUND = new Audio('sounds/success.wav');
+var GAMEOVER_SOUND = new Audio('sounds/gameover.wav');
+
+
 //Setup somebricks
 var brickRowCount = 3;
 var brickColumnCount = 5;
@@ -110,6 +116,7 @@ if(y + dy < ballRadius) {
 		
 	}
 	else {
+	GAMEOVER_SOUND.play();
 	alert("GAME OVER!");
 	document.location.reload();
 }
@@ -167,7 +174,9 @@ function collisionDetection() {
 				dy = -dy;
 				b.status = 0;
 				score++;
+				SCORE_SOUND.play();
 				if(score == brickRowCount*brickColumnCount) {
+					WINNING_SOUND.play();
 					alert("YOU WIN, CONGRATULATIONS!");
 					document.location.reload();
 				}
